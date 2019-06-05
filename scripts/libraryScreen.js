@@ -650,6 +650,7 @@ H5P.BranchingScenario.LibraryScreen = (function () {
       self.wrapper.classList.remove('h5p-current-screen');
       self.wrapper.classList.add('h5p-next-screen');
       self.wrapper.classList.remove('h5p-slide-out');
+      self.wrapper.classList.remove('h5p-slide-out-reverse');
       setTimeout(() => {
         if (self.wrapper.parentNode !== null) {
           self.wrapper.parentNode.removeChild(self.wrapper);
@@ -725,7 +726,7 @@ H5P.BranchingScenario.LibraryScreen = (function () {
    * @param  {Object} library Library data
    * @return {undefined}
    */
-  LibraryScreen.prototype.showNextLibrary = function (library) {
+  LibraryScreen.prototype.showNextLibrary = function (library, reverse = false) {
     this.nextLibraryId = library.nextContentId;
     this.libraryFeedback = library.feedback;
 
@@ -740,7 +741,12 @@ H5P.BranchingScenario.LibraryScreen = (function () {
       }
 
       // Slide out the current library
-      this.currentLibraryWrapper.classList.add('h5p-slide-out');
+      if (reverse) {
+        this.currentLibraryWrapper.classList.add('h5p-slide-out-reverse');
+      }
+      else {
+        this.currentLibraryWrapper.classList.add('h5p-slide-out');
+      }
 
       // Remove the branching questions if they exist
       if (this.overlay) {
@@ -767,6 +773,12 @@ H5P.BranchingScenario.LibraryScreen = (function () {
       if (!libraryWrapper.offsetParent) {
         this.wrapper.appendChild(libraryWrapper);
       }
+
+      if (reverse) {
+        libraryWrapper.classList.remove('h5p-next');
+        libraryWrapper.classList.add('h5p-previous');
+      }
+
       libraryWrapper.classList.add('h5p-slide-in');
       const libraryElement = libraryWrapper.getElementsByClassName('h5p-branching-scenario-content')[0];
       libraryElement.classList.remove('h5p-branching-hidden');
@@ -783,6 +795,7 @@ H5P.BranchingScenario.LibraryScreen = (function () {
           self.currentLibraryWrapper.parentNode.removeChild(self.currentLibraryWrapper);
         }
         self.currentLibraryWrapper = libraryWrapper;
+        self.currentLibraryWrapper.classList.remove('h5p-previous');
         self.currentLibraryWrapper.classList.remove('h5p-next');
         self.currentLibraryWrapper.classList.remove('h5p-slide-in');
         self.currentLibraryElement = libraryWrapper.getElementsByClassName('h5p-branching-scenario-content')[0];
