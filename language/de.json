@@ -83,6 +83,10 @@
                   {
                     "description": "Diese Option legt fest, ob der \"Zurück\"-Button für diesen Inhalt aktiviert wird.",
                     "label": "Erlaube Rückwärtsnavigation"
+                  },
+                  {
+                    "label": "Inhalt muss abgeschlossen sein, um fortfahren zu können",
+                    "description": "Hat keinen Effekt, wenn der Inhalt keinen Anhaltspunkt liefert, ob er abgeschlossen wurde, z. B. Bilder oder Präsentationen mit nur einem Schaubild."
                   }
                 ]
               }
@@ -124,6 +128,21 @@
                 },
                 {
                   "label": "Verbiete Rückwärtsnavigation für alle Inhalte"
+                }
+              ]
+            },
+            {
+              "label": "Überschreiben der Optionen zum Fortfahren nach Abschluss",
+              "description": "Überschreibt die individuellen Einstellungen zum Steuern der Freigabe des \"Weiter\"-Buttons. Hat keinen Effekt, wenn der Inhalt keinen Anhaltspunkt liefert, ob er abgeschlossen wurde, z. B. Bilder oder Präsentationen mit nur einem Schaubild.",
+              "options": [
+                {
+                  "label": "Nutze die individuellen Einstellungen des Inhalts"
+                },
+                {
+                  "label": "Alle Inhalte müssen erst abgeschlossen werden"
+                },
+                {
+                  "label": "Kein Inhalt muss erst abgeschlossen werden"
                 }
               ]
             }

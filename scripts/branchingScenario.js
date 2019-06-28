@@ -51,7 +51,10 @@ H5P.BranchingScenario = function (params, contentId) {
       }
     ],
     scoringOption: 'no-score',
-    behaviour: 'individual',
+    behaviour: {
+      overrideBackwardsNavigation: 'individual',
+      overrideFinishing: 'individual'
+    },
     l10n: {}
   }, params.branchingScenario); // Account for the wrapper!
 
@@ -74,11 +77,11 @@ H5P.BranchingScenario = function (params, contentId) {
 
   // Compute pattern for enabling/disabling back button
   self.backwardsAllowedFlags = params.content.map( content => {
-    if (params.behaviour === 'individual') {
-      return content.contentBehaviour || false;
+    if (params.behaviour.overrideBackwardsNavigation === 'individual') {
+      return content.contentBehaviour.enableBackwardsNavigation || false;
     }
 
-    return params.behaviour === 'allBackwards';
+    return params.behaviour.overrideBackwardsNavigation === 'allBackwards';
   });
 
   self.params = params;
@@ -392,6 +395,28 @@ H5P.BranchingScenario = function (params, contentId) {
         && self.$container[0].classList.contains('h5p-fullscreen'))
       || (self.$container
         && self.$container[0].classList.contains('h5p-semi-fullscreen'));
+  };
+
+  /**
+   * Disable proceed button.
+   */
+  self.disableNavButton = function () {
+    if (!self.libraryScreen.navButton) {
+      return;
+    }
+    self.libraryScreen.navButton.classList.add('h5p-disabled');
+    self.libraryScreen.navButton.setAttribute('disabled', true);
+  };
+
+  /**
+   * Enable proceed button.
+   */
+  self.enableNavButton = function () {
+    if (!self.libraryScreen.navButton) {
+      return;
+    }
+    self.libraryScreen.navButton.classList.remove('h5p-disabled');
+    self.libraryScreen.navButton.removeAttribute('disabled');
   };
 
   /**
