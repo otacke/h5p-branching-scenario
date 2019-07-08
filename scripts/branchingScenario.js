@@ -78,7 +78,7 @@ H5P.BranchingScenario = function (params, contentId) {
   // Compute pattern for enabling/disabling back button
   self.backwardsAllowedFlags = params.content.map( content => {
     if (params.behaviour.overrideBackwardsNavigation === 'individual') {
-      return content.contentBehaviour.enableBackwardsNavigation || false;
+      return (content.contentBehaviour && content.contentBehaviour.enableBackwardsNavigation) || false;
     }
 
     return params.behaviour.overrideBackwardsNavigation === 'allBackwards';
